@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from numbertools import pi_digits
+from numbertoolkit import pi_digits
 
 # "3." followed by 10000 decimal digits (10001 significant digits), generated
 # with mpmath at higher precision and truncated.

@@ -1,6 +1,6 @@
 LINUX_TARGETS = x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu
 
-.PHONY: install test bench wheels publish clean
+.PHONY: install test bench wheels pypi clean
 
 # create .venv, build the extension, and install it editable with dev deps
 install:
@@ -23,7 +23,7 @@ wheels:
 	uvx maturin sdist
 	@ls -lh target/wheels
 
-publish: test wheels
+pypi: test wheels
 	uv publish target/wheels/*
 
 clean:

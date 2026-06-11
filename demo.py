@@ -7,9 +7,9 @@ app = marimo.App(width="medium")
 @app.cell(hide_code=True)
 def _(mo):
     mo.md("""
-    # numbertools demo
+    # numbertoolkit demo
 
-    `numbertools` is a Python library for playing with number theory topics, with
+    `numbertoolkit` is a Python library for playing with number theory topics, with
     the heavy lifting done in Rust. Its first function is `pi_digits(n)`, which
     returns the first `n` significant digits of pi as a string, computed with the
     Chudnovsky series and binary splitting — exact integer arithmetic all the way
@@ -24,9 +24,9 @@ def _():
 
     import marimo as mo
 
-    import numbertools
+    import numbertoolkit
 
-    return mo, numbertools, time
+    return mo, numbertoolkit, time
 
 
 @app.cell
@@ -39,8 +39,8 @@ def _(mo):
 
 
 @app.cell
-def _(mo, n, numbertools):
-    digits = numbertools.pi_digits(n.value)
+def _(mo, n, numbertoolkit):
+    digits = numbertoolkit.pi_digits(n.value)
     wrapped = "\n".join(digits[i : i + 80] for i in range(0, len(digits), 80))
     mo.md(f"**The first {n.value:,} digits of pi**\n\n```\n{wrapped}\n```")
     return
@@ -59,11 +59,11 @@ def _(mo):
 
 
 @app.cell
-def _(mo, numbertools, time):
+def _(mo, numbertoolkit, time):
     rows = []
     for size in (1_000, 10_000, 100_000, 1_000_000):
         start = time.perf_counter()
-        numbertools.pi_digits(size)
+        numbertoolkit.pi_digits(size)
         rows.append((size, time.perf_counter() - start))
     mo.md(
         "| digits | seconds |\n|---:|---:|\n"

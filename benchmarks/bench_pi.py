@@ -1,11 +1,11 @@
-"""Benchmark numbertools.pi_digits against other ways of computing pi digits.
+"""Benchmark numbertoolkit.pi_digits against other ways of computing pi digits.
 
 Run with:
 
     uv run --group bench benchmarks/bench_pi.py
 
 Compared implementations:
-- numbertools.pi_digits (Rust, Chudnovsky + binary splitting)
+- numbertoolkit.pi_digits (Rust, Chudnovsky + binary splitting)
 - mpmath (pure-Python arbitrary precision, also Chudnovsky-based)
 - stdlib decimal with Machin's formula (naive O(n^2) baseline, small n only)
 
@@ -19,7 +19,7 @@ from decimal import Decimal, getcontext
 
 import mpmath
 
-import numbertools
+import numbertoolkit
 
 SIZES = [100, 1_000, 10_000, 100_000, 1_000_000]
 DECIMAL_MAX_N = 5_000  # the Machin baseline is O(n^2); keep it tractable
@@ -61,9 +61,9 @@ def fmt(seconds: float | None) -> str:
 def main() -> None:
     rows = []
     for n in SIZES:
-        ours, t_ours = time_once(lambda: numbertools.pi_digits(n))
+        ours, t_ours = time_once(lambda: numbertoolkit.pi_digits(n))
         ref, t_mp = time_once(lambda: mpmath_digits(n))
-        # compare all but the last digit: mpmath rounds, numbertools truncates
+        # compare all but the last digit: mpmath rounds, numbertoolkit truncates
         assert ours[: n - 1] == ref[: n - 1], f"digit mismatch at n={n}"
 
         t_dec = None
@@ -75,7 +75,7 @@ def main() -> None:
         print(f"done n={n:,}", flush=True)
 
     print()
-    print("| digits | numbertools | mpmath | speedup vs mpmath | decimal (Machin) |")
+    print("| digits | numbertoolkit | mpmath | speedup vs mpmath | decimal (Machin) |")
     print("|---:|---:|---:|---:|---:|")
     for n, t_ours, t_mp, t_dec in rows:
         print(
