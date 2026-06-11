@@ -1,0 +1,18 @@
+[package]
+name = "numbertools"
+version = "0.1.0"
+edition = "2024"
+description = "Fast number theory utilities for Python, backed by Rust"
+license = "MIT"
+
+[lib]
+name = "numbertools"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.28", features = ["abi3-py310"] }
+malachite = "0.9"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
