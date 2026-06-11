@@ -1,0 +1,32 @@
+[build-system]
+requires = ["maturin>=1.13,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "numbertools"
+version = "0.1.0"
+description = "Fast number theory utilities backed by Rust"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+
+[tool.maturin]
+python-source = "python"
+module-name = "numbertools._core"
+features = ["pyo3/extension-module"]
+
+[dependency-groups]
+bench = [
+    "mpmath>=1.4.1",
+]
+dev = [
+    "marimo>=0.23.9",
+    "pytest>=8",
+]
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { file = "Cargo.toml" }, { file = "src/**/*.rs" }]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: long-running tests"]
