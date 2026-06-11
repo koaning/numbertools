@@ -3,7 +3,7 @@ requires = ["maturin>=1.13,<2.0"]
 build-backend = "maturin"
 
 [project]
-name = "numbertools"
+name = "numbertoolkit"
 version = "0.1.0"
 description = "Fast number theory utilities backed by Rust"
 readme = "README.md"
@@ -12,7 +12,7 @@ license = "MIT"
 
 [tool.maturin]
 python-source = "python"
-module-name = "numbertools._core"
+module-name = "numbertoolkit._core"
 features = ["pyo3/extension-module"]
 
 [dependency-groups]

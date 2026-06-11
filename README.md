@@ -1,11 +1,11 @@
-# numbertools
+# numbertoolkit
 
 Fast number theory utilities for Python, backed by Rust.
 
 ```python
-import numbertools
+import numbertoolkit
 
-numbertools.pi_digits(10)
+numbertoolkit.pi_digits(10)
 # '3.141592653'
 ```
 
@@ -38,7 +38,7 @@ uv run --group bench benchmarks/bench_pi.py
 
 On an Apple Silicon laptop:
 
-| digits | numbertools | mpmath | speedup vs mpmath |
+| digits | numbertoolkit | mpmath | speedup vs mpmath |
 |---:|---:|---:|---:|
 | 10,000 | 0.0008s | 0.0052s | 6x |
 | 100,000 | 0.0154s | 0.1926s | 13x |
@@ -65,7 +65,7 @@ PyPI is done manually. Thanks to abi3, each wheel covers Python 3.10+ on its
 platform, and cross-compiling doesn't need a target Python interpreter.
 
 `make wheels` builds the full release set (macOS wheel, both Linux wheels via
-zig, sdist) and `make publish` runs the tests, builds, and uploads. The
+zig, sdist) and `make pypi` runs the tests, builds, and uploads. The
 underlying commands:
 
 ```sh

@@ -1,12 +1,12 @@
 [package]
-name = "numbertools"
+name = "numbertoolkit"
 version = "0.1.0"
 edition = "2024"
 description = "Fast number theory utilities for Python, backed by Rust"
 license = "MIT"
 
 [lib]
-name = "numbertools"
+name = "numbertoolkit"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
