@@ -20,6 +20,16 @@ Implemented with the Chudnovsky series using binary splitting and exact
 integer arithmetic (no floating point), so it stays fast well into the
 millions of digits.
 
+## Documentation
+
+Full docs live at [koaning.github.io/numbertools](https://koaning.github.io/numbertools/),
+built with [Zensical](https://zensical.org) from the `docs/` directory. To
+preview locally:
+
+```sh
+make docs    # live-reloading preview at http://localhost:8000
+```
+
 ## Demo
 
 An interactive [marimo](https://marimo.io) notebook demoing the package:

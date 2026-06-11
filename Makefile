@@ -1,6 +1,6 @@
 LINUX_TARGETS = x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu
 
-.PHONY: install test bench wheels pypi clean
+.PHONY: install test bench docs wheels pypi clean
 
 # create .venv, build the extension, and install it editable with dev deps
 install:
@@ -14,6 +14,10 @@ test:
 bench:
 	uv run --group bench benchmarks/bench_pi.py
 	uv run --group bench benchmarks/bench_sqrt.py
+
+# live-reloading docs preview at http://localhost:8000
+docs:
+	uv run zensical serve
 
 # build the full release set: macOS wheel, Linux wheels (via zig), sdist
 wheels:
@@ -29,4 +33,4 @@ pypi: test wheels
 
 clean:
 	cargo clean
-	rm -rf .venv .pytest_cache
+	rm -rf .venv .pytest_cache site .zensical

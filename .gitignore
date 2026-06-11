@@ -1,5 +1,7 @@
 /target
 /dist
+/site
+.zensical/
 .venv/
 __pycache__/
 *.pyc
