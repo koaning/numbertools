@@ -13,6 +13,7 @@ test:
 
 bench:
 	uv run --group bench benchmarks/bench_pi.py
+	uv run --group bench benchmarks/bench_sqrt.py
 
 # build the full release set: macOS wheel, Linux wheels (via zig), sdist
 wheels:
