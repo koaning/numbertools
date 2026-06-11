@@ -10,10 +10,10 @@ def _(mo):
     # numbertoolkit demo
 
     `numbertoolkit` is a Python library for playing with number theory topics, with
-    the heavy lifting done in Rust. Its first function is `pi_digits(n)`, which
-    returns the first `n` significant digits of pi as a string, computed with the
-    Chudnovsky series and binary splitting — exact integer arithmetic all the way
-    down, no floating point.
+    the heavy lifting done in Rust. It computes the digits of famous constants —
+    `pi_digits(n)`, `e_digits(n)`, and `phi_digits(n)` — as raw digit streams,
+    using binary splitting and exact integer arithmetic all the way down, no
+    floating point. Pass `decimal_point=True` if you want the point back.
     """)
     return
 
@@ -30,19 +30,30 @@ def _():
 
 
 @app.cell
-def _(mo):
+def _(mo, numbertoolkit):
+    constant = mo.ui.dropdown(
+        {
+            "pi": numbertoolkit.pi_digits,
+            "e": numbertoolkit.e_digits,
+            "phi": numbertoolkit.phi_digits,
+        },
+        value="pi",
+        label="Constant",
+    )
     n = mo.ui.slider(
         1, 10_000, value=50, label="Number of digits", show_value=True, full_width=True
     )
-    n
-    return (n,)
+    mo.vstack([constant, n])
+    return constant, n
 
 
 @app.cell
-def _(mo, n, numbertoolkit):
-    digits = numbertoolkit.pi_digits(n.value)
+def _(constant, mo, n):
+    digits = constant.value(n.value)
     wrapped = "\n".join(digits[i : i + 80] for i in range(0, len(digits), 80))
-    mo.md(f"**The first {n.value:,} digits of pi**\n\n```\n{wrapped}\n```")
+    mo.md(
+        f"**The first {n.value:,} digits of {constant.selected_key}**\n\n```\n{wrapped}\n```"
+    )
     return
 
 
@@ -59,14 +70,15 @@ def _(mo):
 
 
 @app.cell
-def _(mo, numbertoolkit, time):
+def _(constant, mo, time):
     rows = []
     for size in (1_000, 10_000, 100_000, 1_000_000):
         start = time.perf_counter()
-        numbertoolkit.pi_digits(size)
+        constant.value(size)
         rows.append((size, time.perf_counter() - start))
     mo.md(
-        "| digits | seconds |\n|---:|---:|\n"
+        f"Timings for **{constant.selected_key}**:\n\n"
+        + "| digits | seconds |\n|---:|---:|\n"
         + "\n".join(f"| {size:,} | {secs:.3f} |" for size, secs in rows)
     )
     return

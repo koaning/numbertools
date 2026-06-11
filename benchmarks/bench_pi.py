@@ -33,7 +33,7 @@ def time_once(fn):
 
 def mpmath_digits(n: int) -> str:
     mpmath.mp.dps = n
-    return mpmath.nstr(mpmath.pi, n)
+    return mpmath.nstr(mpmath.pi, n).replace(".", "")
 
 
 def machin_decimal_digits(n: int) -> str:
@@ -51,7 +51,7 @@ def machin_decimal_digits(n: int) -> str:
             total += sign * term / k
         return total
 
-    return str(16 * arctan_inv(5) - 4 * arctan_inv(239))
+    return str(16 * arctan_inv(5) - 4 * arctan_inv(239)).replace(".", "")
 
 
 def fmt(seconds: float | None) -> str:

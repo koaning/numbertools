@@ -6,19 +6,33 @@ Fast number theory utilities for Python, backed by Rust.
 import numbertoolkit
 
 numbertoolkit.pi_digits(10)
+# '3141592653'
+
+numbertoolkit.pi_digits(10, decimal_point=True)
 # '3.141592653'
 ```
 
 ## Functions
 
-### `pi_digits(n: int) -> str`
+All functions return the first `n` significant digits as a raw digit string.
+Digits are truncated, not rounded. By default the decimal point is omitted;
+pass `decimal_point=True` to include it.
 
-Returns the first `n` significant digits of pi as a string, e.g.
-`pi_digits(5) == "3.1415"`. Digits are truncated, not rounded.
+### `pi_digits(n: int, *, decimal_point: bool = False) -> str`
 
-Implemented with the Chudnovsky series using binary splitting and exact
-integer arithmetic (no floating point), so it stays fast well into the
-millions of digits.
+`pi_digits(5) == "31415"`. Implemented with the Chudnovsky series using
+binary splitting and exact integer arithmetic (no floating point), so it
+stays fast well into the millions of digits.
+
+### `e_digits(n: int, *, decimal_point: bool = False) -> str`
+
+`e_digits(5) == "27182"`. Implemented with the factorial series
+`e = Σ 1/k!` using binary splitting and exact integer arithmetic.
+
+### `phi_digits(n: int, *, decimal_point: bool = False) -> str`
+
+`phi_digits(5) == "16180"`. The golden ratio `(1 + √5) / 2`, computed as an
+exact integer square root of `5·10^(2·prec)` — every digit returned is exact.
 
 ## Demo
 
@@ -30,10 +44,11 @@ uv run marimo edit demo.py
 
 ## Benchmarks
 
-Compare against mpmath and a stdlib-`decimal` Machin baseline:
+Compare against mpmath and stdlib baselines:
 
 ```sh
 uv run --group bench benchmarks/bench_pi.py
+uv run --group bench benchmarks/bench_e.py
 ```
 
 On an Apple Silicon laptop:
