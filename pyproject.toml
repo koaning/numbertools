@@ -1,10 +1,10 @@
 [build-system]
-requires = ["maturin>=1.13,<2.0"]
+requires = ["maturin>=1.13.3,<2.0"]
 build-backend = "maturin"
 
 [project]
 name = "numbertoolkit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fast number theory utilities backed by Rust"
 readme = "README.md"
 requires-python = ">=3.10"

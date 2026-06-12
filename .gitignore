@@ -1,5 +1,6 @@
 /target
 /dist
+/.wasm-toolchain/
 .venv/
 __pycache__/
 *.pyc
