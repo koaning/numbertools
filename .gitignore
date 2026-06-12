@@ -1,6 +1,8 @@
 /target
 /dist
 /.wasm-toolchain/
+/site
+.zensical/
 .venv/
 __pycache__/
 *.pyc

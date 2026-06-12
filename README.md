@@ -6,19 +6,33 @@ Fast number theory utilities for Python, backed by Rust.
 import numbertoolkit
 
 numbertoolkit.pi_digits(10)
+# '3141592653'
+
+numbertoolkit.pi_digits(10, decimal_point=True)
 # '3.141592653'
 ```
 
 ## Functions
 
-### `pi_digits(n: int) -> str`
+- `pi_digits`, `e_digits`, `phi_digits` — first `n` significant digits of
+  pi, e, and the golden ratio
+- `sqrt_digits` — first `n` significant digits of the square root of any
+  positive integer
+- `is_prime` — primality check
+- `first_n_primes` — the first `n` primes in ascending order
 
-Returns the first `n` significant digits of pi as a string, e.g.
-`pi_digits(5) == "3.1415"`. Digits are truncated, not rounded.
+Digit functions return truncated (not rounded) digit strings, computed with
+exact integer arithmetic in Rust — fast well into the millions of digits.
 
-Implemented with the Chudnovsky series using binary splitting and exact
-integer arithmetic (no floating point), so it stays fast well into the
-millions of digits.
+## Documentation
+
+Full docs live at [koaning.github.io/numbertools](https://koaning.github.io/numbertools/),
+built with [Zensical](https://zensical.org) from the `docs/` directory. To
+preview locally:
+
+```sh
+make docs    # live-reloading preview at http://localhost:8000
+```
 
 ## Demo
 
@@ -30,10 +44,12 @@ uv run marimo edit demo.py
 
 ## Benchmarks
 
-Compare against mpmath and a stdlib-`decimal` Machin baseline:
+Compare against mpmath and stdlib baselines:
 
 ```sh
 uv run --group bench benchmarks/bench_pi.py
+uv run --group bench benchmarks/bench_e.py
+uv run --group bench benchmarks/bench_sqrt.py
 ```
 
 On an Apple Silicon laptop:
