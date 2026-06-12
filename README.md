@@ -14,43 +14,15 @@ numbertoolkit.pi_digits(10, decimal_point=True)
 
 ## Functions
 
-The digit functions (`pi_digits`, `e_digits`, `phi_digits`, `sqrt_digits`)
-return the first `n` significant digits as a string. Digits are truncated,
-not rounded. A keyword-only `decimal_point` flag controls
-whether the decimal point is included — the constant functions omit it by
-default, `sqrt_digits` includes it by default.
+- `pi_digits`, `e_digits`, `phi_digits` — first `n` significant digits of
+  pi, e, and the golden ratio
+- `sqrt_digits` — first `n` significant digits of the square root of any
+  positive integer
+- `is_prime` — primality check
+- `first_n_primes` — the first `n` primes in ascending order
 
-### `pi_digits(n: int, *, decimal_point: bool = False) -> str`
-
-`pi_digits(5) == "31415"`. Implemented with the Chudnovsky series using
-binary splitting and exact integer arithmetic (no floating point), so it
-stays fast well into the millions of digits.
-
-### `e_digits(n: int, *, decimal_point: bool = False) -> str`
-
-`e_digits(5) == "27182"`. Implemented with the factorial series
-`e = Σ 1/k!` using binary splitting and exact integer arithmetic.
-
-### `phi_digits(n: int, *, decimal_point: bool = False) -> str`
-
-`phi_digits(5) == "16180"`. The golden ratio `(1 + √5) / 2`, computed as an
-exact integer square root of `5·10^(2·prec)` — every digit returned is exact.
-
-### `sqrt_digits(d: int, n: int, *, decimal_point: bool = True) -> str`
-
-`sqrt_digits(2, 5) == "1.4142"`. The square root of any positive integer
-`d`, computed as an exact integer floor square root. Pass
-`decimal_point=False` for the raw digit stream: `"14142"`.
-
-### `is_prime(n: int) -> bool`
-
-Returns whether `n` is a prime number, e.g. `is_prime(17) == True`. Any value
-below 2 (including negatives, 0 and 1) is not prime.
-
-### `first_n_primes(n: int) -> list[int]`
-
-Returns the first `n` prime numbers in ascending order, e.g.
-`first_n_primes(5) == [2, 3, 5, 7, 11]`. `n` must be `>= 0`.
+Digit functions return truncated (not rounded) digit strings, computed with
+exact integer arithmetic in Rust — fast well into the millions of digits.
 
 ## Documentation
 

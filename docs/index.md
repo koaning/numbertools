@@ -28,7 +28,9 @@ without a wheel, pip falls back to the source distribution, which requires a
 ## Quickstart
 
 ```python
-from numbertoolkit import e_digits, phi_digits, pi_digits
+from numbertoolkit import (
+    e_digits, first_n_primes, is_prime, phi_digits, pi_digits, sqrt_digits,
+)
 
 pi_digits(5)
 # '31415'
@@ -41,6 +43,15 @@ e_digits(5)
 
 phi_digits(5)  # the golden ratio
 # '16180'
+
+sqrt_digits(2, 5)
+# '1.4142'
+
+is_prime(17)
+# True
+
+first_n_primes(5)
+# [2, 3, 5, 7, 11]
 
 len(pi_digits(1_000_000))  # a million digits in a fraction of a second
 # 1000000
