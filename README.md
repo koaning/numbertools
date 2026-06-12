@@ -20,6 +20,16 @@ Implemented with the Chudnovsky series using binary splitting and exact
 integer arithmetic (no floating point), so it stays fast well into the
 millions of digits.
 
+### `is_prime(n: int) -> bool`
+
+Returns whether `n` is a prime number, e.g. `is_prime(17) == True`. Any value
+below 2 (including negatives, 0 and 1) is not prime.
+
+### `first_n_primes(n: int) -> list[int]`
+
+Returns the first `n` prime numbers in ascending order, e.g.
+`first_n_primes(5) == [2, 3, 5, 7, 11]`. `n` must be `>= 0`.
+
 ## Demo
 
 An interactive [marimo](https://marimo.io) notebook demoing the package:
