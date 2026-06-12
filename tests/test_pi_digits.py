@@ -8,23 +8,30 @@ from numbertoolkit import pi_digits
 # "3." followed by 10000 decimal digits (10001 significant digits), generated
 # with mpmath at higher precision and truncated.
 REFERENCE = (Path(__file__).parent / "data" / "pi_10000.txt").read_text().strip()
+REFERENCE_DIGITS = REFERENCE.replace(".", "")
 
 
 def test_small_values():
     assert pi_digits(1) == "3"
-    assert pi_digits(2) == "3.1"
-    assert pi_digits(5) == "3.1415"
-    assert pi_digits(51) == "3.14159265358979323846264338327950288419716939937510"
+    assert pi_digits(2) == "31"
+    assert pi_digits(5) == "31415"
+    assert pi_digits(51) == "314159265358979323846264338327950288419716939937510"
+
+
+def test_decimal_point():
+    assert pi_digits(1, decimal_point=True) == "3"
+    assert pi_digits(2, decimal_point=True) == "3.1"
+    assert pi_digits(5, decimal_point=True) == "3.1415"
 
 
 @pytest.mark.parametrize("n", [100, 1000, 9999, 10001])
 def test_matches_reference(n):
-    assert pi_digits(n) == REFERENCE[: n + 1]
+    assert pi_digits(n) == REFERENCE_DIGITS[:n]
 
 
 def test_thousandth_decimal_digit():
     # The 1000th digit after the decimal point of pi is 9.
-    assert pi_digits(1001)[-1] == "9" == REFERENCE[1001]
+    assert pi_digits(1001)[-1] == "9" == REFERENCE_DIGITS[1000]
 
 
 @pytest.mark.parametrize("n", [1, 2, 7, 100, 1234])
@@ -68,12 +75,12 @@ def machin_pi(digits: int) -> str:
 
 @pytest.mark.slow
 def test_independent_machin_cross_check():
-    assert pi_digits(1000) == machin_pi(1000)
+    assert pi_digits(1000, decimal_point=True) == machin_pi(1000)
 
 
 @pytest.mark.slow
 def test_large_n_completes():
     s = pi_digits(100_000)
-    assert len(s) == 100_001
-    assert s.startswith("3.14159265358979")
-    assert s == pi_digits(100_137)[:100_001]
+    assert len(s) == 100_000
+    assert s.startswith("314159265358979")
+    assert s == pi_digits(100_137)[:100_000]
