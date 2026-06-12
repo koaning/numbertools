@@ -1,9 +1,17 @@
 """Fast number theory utilities backed by Rust."""
 
 from numbertoolkit import _core
+from numbertoolkit._core import first_n_primes, is_prime
 from numbertoolkit._core import sqrt_digits as _sqrt_digits
 
-__all__ = ["e_digits", "phi_digits", "pi_digits", "sqrt_digits"]
+__all__ = [
+    "e_digits",
+    "phi_digits",
+    "pi_digits",
+    "sqrt_digits",
+    "is_prime",
+    "first_n_primes",
+]
 
 
 def _with_point(digits: str) -> str:
