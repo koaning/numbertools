@@ -1,5 +1,6 @@
 /target
 /dist
+/.wasm-toolchain/
 /site
 .zensical/
 .venv/

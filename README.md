@@ -80,9 +80,15 @@ Tests run automatically on GitHub (`.github/workflows/ci.yml`); publishing to
 PyPI is done manually. Thanks to abi3, each wheel covers Python 3.10+ on its
 platform, and cross-compiling doesn't need a target Python interpreter.
 
-`make wheels` builds the full release set (macOS wheel, both Linux wheels via
-zig, sdist) and `make pypi` runs the tests, builds, and uploads. The
-underlying commands:
+`make wheels` builds the native release set (macOS wheel, both Linux wheels
+via zig, sdist). `make wasm-wheel` builds a Pyodide/WebAssembly wheel (PEP 783
+`pyemscripten` tag, Python 3.14) so `micropip.install("numbertoolkit")` works
+in Pyodide ≥ 314 runtimes such as marimo WASM; on first run it sets up emsdk
+and the pinned Rust toolchain under `.wasm-toolchain/`. Unlike the native
+wheels, the wasm wheel's platform tag pins one Pyodide ABI year, so it needs
+a rebuild whenever Pyodide moves to a new ABI. `make pypi` runs the tests,
+builds all of the above, and uploads. The underlying commands for the native
+set:
 
 ```sh
 # wheel for this machine + source distribution (lands in target/wheels/)
