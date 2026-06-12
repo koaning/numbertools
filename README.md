@@ -14,9 +14,10 @@ numbertoolkit.pi_digits(10, decimal_point=True)
 
 ## Functions
 
-All functions return the first `n` significant digits as a raw digit string.
-Digits are truncated, not rounded. By default the decimal point is omitted;
-pass `decimal_point=True` to include it.
+All functions return the first `n` significant digits as a string. Digits
+are truncated, not rounded. A keyword-only `decimal_point` flag controls
+whether the decimal point is included — the constant functions omit it by
+default, `sqrt_digits` includes it by default.
 
 ### `pi_digits(n: int, *, decimal_point: bool = False) -> str`
 
@@ -34,6 +35,22 @@ stays fast well into the millions of digits.
 `phi_digits(5) == "16180"`. The golden ratio `(1 + √5) / 2`, computed as an
 exact integer square root of `5·10^(2·prec)` — every digit returned is exact.
 
+### `sqrt_digits(d: int, n: int, *, decimal_point: bool = True) -> str`
+
+`sqrt_digits(2, 5) == "1.4142"`. The square root of any positive integer
+`d`, computed as an exact integer floor square root. Pass
+`decimal_point=False` for the raw digit stream: `"14142"`.
+
+## Documentation
+
+Full docs live at [koaning.github.io/numbertools](https://koaning.github.io/numbertools/),
+built with [Zensical](https://zensical.org) from the `docs/` directory. To
+preview locally:
+
+```sh
+make docs    # live-reloading preview at http://localhost:8000
+```
+
 ## Demo
 
 An interactive [marimo](https://marimo.io) notebook demoing the package:
@@ -49,6 +66,7 @@ Compare against mpmath and stdlib baselines:
 ```sh
 uv run --group bench benchmarks/bench_pi.py
 uv run --group bench benchmarks/bench_e.py
+uv run --group bench benchmarks/bench_sqrt.py
 ```
 
 On an Apple Silicon laptop:
