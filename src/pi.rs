@@ -37,7 +37,8 @@ fn bsplit(a: u64, b: u64) -> (Integer, Integer, Integer) {
     }
 }
 
-/// First `n` significant digits of pi, truncated: `pi_digits(5) == "3.1415"`.
+/// First `n` significant digits of pi as a raw digit string, truncated:
+/// `pi_digits(5) == "31415"`.
 pub fn pi_digits(n: usize) -> String {
     let prec = n + GUARD;
     let terms = ((prec as f64 / DIGITS_PER_TERM) as u64 + 1).max(2);
@@ -47,11 +48,7 @@ pub fn pi_digits(n: usize) -> String {
     let numer = Integer::from(426_880u32) * Integer::from(sqrt_c) * &q;
     let denom = Integer::from(A) * &q + &t;
     let s = (numer / denom).to_string(); // "31415926..." = floor(pi * 10^prec)
-    if n == 1 {
-        "3".to_string()
-    } else {
-        format!("3.{}", &s[1..n])
-    }
+    s[..n].to_string()
 }
 
 #[cfg(test)]
@@ -61,16 +58,16 @@ mod tests {
     #[test]
     fn small_values() {
         assert_eq!(pi_digits(1), "3");
-        assert_eq!(pi_digits(2), "3.1");
-        assert_eq!(pi_digits(5), "3.1415");
-        assert_eq!(pi_digits(10), "3.141592653");
+        assert_eq!(pi_digits(2), "31");
+        assert_eq!(pi_digits(5), "31415");
+        assert_eq!(pi_digits(10), "3141592653");
     }
 
     #[test]
     fn fifty_decimals() {
         assert_eq!(
             pi_digits(51),
-            "3.14159265358979323846264338327950288419716939937510"
+            "314159265358979323846264338327950288419716939937510"
         );
     }
 

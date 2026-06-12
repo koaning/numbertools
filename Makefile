@@ -13,6 +13,7 @@ test:
 
 bench:
 	uv run --group bench benchmarks/bench_pi.py
+	uv run --group bench benchmarks/bench_e.py
 	uv run --group bench benchmarks/bench_sqrt.py
 
 # live-reloading docs preview at http://localhost:8000

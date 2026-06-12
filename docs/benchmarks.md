@@ -13,20 +13,30 @@ The gap widens with digit count because numbertoolkit's binary-splitting
 Chudnovsky implementation scales quasi-linearly, and the Rust extension
 avoids Python-level overhead in the hot loop.
 
+The same holds for `e_digits` (factorial series with binary splitting):
+
+| digits | numbertoolkit | mpmath | speedup vs mpmath |
+|---:|---:|---:|---:|
+| 10,000 | 0.0005s | 0.0036s | 7x |
+| 100,000 | 0.0086s | 0.0904s | 10x |
+| 1,000,000 | 0.1223s | 3.5060s | 29x |
+
 ## Running the benchmarks yourself
 
-The benchmark suite compares numbertoolkit against mpmath and a
-stdlib-`decimal` baseline using Machin's formula, and cross-checks that all
-implementations agree on the digits they produce:
+The benchmark suite compares numbertoolkit against mpmath and stdlib
+baselines (Machin's formula via `decimal` for pi, an integer Taylor sum for
+e), and cross-checks that all implementations agree on the digits they
+produce:
 
 ```sh
 make bench
 # or directly:
 uv run --group bench benchmarks/bench_pi.py
+uv run --group bench benchmarks/bench_e.py
+uv run --group bench benchmarks/bench_sqrt.py
 ```
 
-The Machin baseline is only run up to 5,000 digits since it scales
-quadratically.
+The quadratic stdlib baselines are only run up to 5,000 digits.
 
 !!! warning "Benchmark release builds only"
 
