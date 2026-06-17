@@ -2,5 +2,5 @@
 
 [scripts]
 setup = "make install"
-run = "uv run marimo edit demo.py -p $CONDUCTOR_PORT --no-token"
+run = "uv run marimo edit demos/ -p $CONDUCTOR_PORT --no-token"
 run_mode = "concurrent"
