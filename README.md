@@ -36,11 +36,17 @@ make docs    # live-reloading preview at http://localhost:8000
 
 ## Demo
 
-An interactive [marimo](https://marimo.io) notebook demoing the package:
+Interactive [marimo](https://marimo.io) notebooks live in `demos/`. Open the
+folder to browse them:
 
 ```sh
-uv run marimo edit demo.py
+uv run marimo edit demos/
 ```
+
+- `demos/demo.py` — a tour of the digit-stream functions.
+- `demos/randomness_tests.py` — randomness tests on the digit streams, counting
+  how often each digit, pair, and triple appears and checking it against a
+  binomial model, with `pi`/`e`/`sqrt(2)` compared to a true PRNG.
 
 ## Benchmarks
 
